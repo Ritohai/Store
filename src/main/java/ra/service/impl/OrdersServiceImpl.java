@@ -166,8 +166,8 @@ public class OrdersServiceImpl implements IOrdersService {
         }
         Optional<Orders> orders = ordersRepository.findById(id);
         if (orders.isPresent()) {
-            if (userPrincipal.getUser().getId().equals(orders.get().getUser().getId())) {
-                orders.get().setStatus(StatusOrder.CANCEL.name());
+            if (userPrincipal.getUser().getId().equals(orders.get().getUser().getId()) && orders.get().getStatus().equals(StatusOrder.WAITING.toString())) {
+                orders.get().setStatus(StatusOrder.CANCEL.toString());
             }
             ordersRepository.save(orders.get());
             return "Đã hủy đơn hàng.";
